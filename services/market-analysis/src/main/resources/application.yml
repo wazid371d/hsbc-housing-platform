@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: market-analysis
+
+server:
+  port: 8080
+
+# Base URL of the Task 1 ML API (overridden in Docker/Render via ML_API_URL env).
+ml:
+  api:
+    url: ${ML_API_URL:http://localhost:8000}
+
+# Path to the housing dataset (classpath copy; overridable).
+dataset:
+  path: ${DATASET_PATH:classpath:data/house_price_dataset.csv}
+
+# Allowed browser origins for the Next.js portal.
+cors:
+  allowed-origins: ${CORS_ALLOWED_ORIGINS:http://localhost:3000}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
