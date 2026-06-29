@@ -1,0 +1,16 @@
+**/node_modules
+**/.next
+**/out
+**/target
+**/.venv
+**/venv
+**/__pycache__
+**/*.pyc
+.git
+.gitignore
+**/.env
+**/.env.local
+**/.DS_Store
+**/.pytest_cache
+docs
+web
