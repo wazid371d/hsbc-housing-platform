@@ -1,0 +1,52 @@
+# Local orchestration of all four services.
+#   docker compose up --build
+# Then open http://localhost:3000 (portal) and http://localhost:8000/docs (ML API Swagger).
+services:
+  ml-api:
+    build:
+      context: .
+      dockerfile: services/ml-api/Dockerfile
+    ports:
+      - "8000:8000"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://localhost:8000/health').status==200 else 1)"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+      start_period: 5s
+
+  bff-property:
+    build:
+      context: services/bff-property
+    ports:
+      - "8001:8000"
+    environment:
+      BFF_ML_API_URL: http://ml-api:8000
+      BFF_CORS_ORIGINS: '["http://localhost:3000"]'
+    depends_on:
+      ml-api:
+        condition: service_healthy
+
+  market-analysis:
+    build:
+      context: services/market-analysis
+    ports:
+      - "8080:8080"
+    environment:
+      ML_API_URL: http://ml-api:8000
+      CORS_ALLOWED_ORIGINS: http://localhost:3000
+    depends_on:
+      ml-api:
+        condition: service_healthy
+
+  web:
+    build:
+      context: web
+    ports:
+      - "3000:3000"
+    environment:
+      BFF_URL: http://bff-property:8000
+      MARKET_API_URL: http://market-analysis:8080
+    depends_on:
+      - bff-property
+      - market-analysis
