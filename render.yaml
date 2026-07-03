@@ -28,8 +28,9 @@ services:
     plan: starter
     region: oregon
     envVars:
+      # Render suffixed the ml-api service's internal hostname (name collision at create time).
       - key: BFF_ML_API_URL
-        value: http://ml-api:8000
+        value: http://ml-api-4rf7:8000
       - key: BFF_CORS_ORIGINS
         value: '["https://hsbc-portal.onrender.com"]'
 
@@ -44,7 +45,7 @@ services:
     region: oregon
     envVars:
       - key: ML_API_URL
-        value: http://ml-api:8000
+        value: http://ml-api-4rf7:8000
       - key: CORS_ALLOWED_ORIGINS
         value: https://hsbc-portal.onrender.com
 
@@ -62,4 +63,4 @@ services:
       - key: BFF_URL
         value: http://bff-property:8000
       - key: MARKET_API_URL
-        value: http://market-analysis:8080
+        value: http://market-analysis-crtx:8080
