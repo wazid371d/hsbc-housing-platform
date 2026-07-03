@@ -25,11 +25,6 @@ export default function RootLayout({
         <main id="main" className="mx-auto w-full max-w-6xl flex-1 px-4 py-6">
           {children}
         </main>
-        <footer className="border-t border-border bg-surface">
-          <div className="mx-auto max-w-6xl px-4 py-4 text-xs text-muted">
-            HSBC Fullstack Assignment — Next.js portal · Python ML API · Java market service
-          </div>
-        </footer>
       </body>
     </html>
   );
