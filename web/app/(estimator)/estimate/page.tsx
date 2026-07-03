@@ -38,7 +38,7 @@ export default function EstimatePage() {
       <div className="space-y-1">
         <h1 className="text-xl font-semibold">Property Value Estimator</h1>
         <p className="text-sm text-muted">
-          Enter property details to get an ML-based price estimate. Each estimate is saved to your
+          Enter property details to get a price estimate. Each estimate is saved to your
           history.
         </p>
       </div>
