@@ -4,6 +4,8 @@ A monorepo implementing the HSBC fullstack assignment: a containerised ML pricin
 a unified Next.js portal hosting two apps backed by **different** technologies (Python and
 Java), both powered by the same model.
 
+_Production deployment verified live on Render._
+
 ## Live demo (production on Render)
 
 | What | URL |
