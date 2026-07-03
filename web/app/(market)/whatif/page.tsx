@@ -7,7 +7,7 @@ export default function WhatIfPage() {
         <h1 className="text-xl font-semibold">What-If Analysis</h1>
         <p className="text-sm text-muted">
           Adjust property attributes to see how the predicted price changes and how it compares to
-          its market segment. Predictions come from the Java backend calling the ML model.
+          its market segment.
         </p>
       </div>
       <WhatIfTool />
