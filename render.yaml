@@ -8,8 +8,9 @@
 #
 # See docs/DEPLOYMENT.md for the full setup runbook.
 services:
-  # Task 1 — ML API (private)
-  - type: pserv
+  # Task 1 — ML API (PUBLIC web service so Swagger/OpenAPI is reachable at /docs).
+  # Still reachable internally by the other backends at http://<internal-name>:8000.
+  - type: web
     name: ml-api
     runtime: docker
     branch: main
@@ -17,6 +18,7 @@ services:
     dockerContext: .
     plan: starter
     region: oregon
+    healthCheckPath: /health
 
   # App 1 backend — Python BFF (private)
   - type: pserv
