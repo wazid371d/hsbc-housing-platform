@@ -1,17 +1,13 @@
-# Render.com blueprint — deploys TWO environments from this monorepo in one Blueprint:
-#   • PROD    services track the `main` branch      (portal: https://hsbc-portal.onrender.com)
-#   • STAGING services track the `staging` branch   (portal: https://hsbc-portal-staging.onrender.com)
+# Render.com blueprint — PRODUCTION deployment (branch: main).
+#   Portal: https://hsbc-portal.onrender.com
 #
 # dev is intentionally NOT here — run it locally with `docker compose up`.
 #
-# Backends are private services (pserv, internal only); only the Next.js portals are public.
-# Private services reach each other at http://<name>:<port>. Each env's portal/backends are
-# wired to that env's own services so the two stacks stay fully isolated.
+# Backends are private services (pserv, internal only); only the Next.js portal is public.
+# Private services reach each other at http://<name>:<port>.
 #
-# See docs/DEPLOYMENT.md for the full setup + promotion runbook.
+# See docs/DEPLOYMENT.md for the full setup runbook.
 services:
-  # ─────────────────────────────── PRODUCTION (branch: main) ───────────────────────────────
-
   # Task 1 — ML API (private)
   - type: pserv
     name: ml-api
@@ -67,61 +63,3 @@ services:
         value: http://bff-property:8000
       - key: MARKET_API_URL
         value: http://market-analysis:8080
-
-  # ──────────────────────────────── STAGING (branch: staging) ─────────────────────────────
-
-  # Task 1 — ML API (private)
-  - type: pserv
-    name: ml-api-staging
-    runtime: docker
-    branch: staging
-    dockerfilePath: ./services/ml-api/Dockerfile
-    dockerContext: .
-    plan: starter
-    region: oregon
-
-  # App 1 backend — Python BFF (private)
-  - type: pserv
-    name: bff-property-staging
-    runtime: docker
-    branch: staging
-    rootDir: services/bff-property
-    dockerfilePath: ./Dockerfile
-    plan: starter
-    region: oregon
-    envVars:
-      - key: BFF_ML_API_URL
-        value: http://ml-api-staging:8000
-      - key: BFF_CORS_ORIGINS
-        value: '["https://hsbc-portal-staging.onrender.com"]'
-
-  # App 2 backend — Java Spring Boot (private)
-  - type: pserv
-    name: market-analysis-staging
-    runtime: docker
-    branch: staging
-    rootDir: services/market-analysis
-    dockerfilePath: ./Dockerfile
-    plan: starter
-    region: oregon
-    envVars:
-      - key: ML_API_URL
-        value: http://ml-api-staging:8000
-      - key: CORS_ALLOWED_ORIGINS
-        value: https://hsbc-portal-staging.onrender.com
-
-  # Next.js portal (public)
-  - type: web
-    name: hsbc-portal-staging
-    runtime: docker
-    branch: staging
-    rootDir: web
-    dockerfilePath: ./Dockerfile
-    plan: starter
-    region: oregon
-    healthCheckPath: /
-    envVars:
-      - key: BFF_URL
-        value: http://bff-property-staging:8000
-      - key: MARKET_API_URL
-        value: http://market-analysis-staging:8080
