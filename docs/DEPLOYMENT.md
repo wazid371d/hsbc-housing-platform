@@ -5,7 +5,7 @@ How this app is deployed for the client demo.
 | Env | Where | Branch | URL |
 |---|---|---|---|
 | **dev** | Local machine (`docker compose`) | any / working tree | http://localhost:3000 |
-| **prod** | Render (cloud) | `main` | https://hsbc-portal.onrender.com |
+| **prod** | Render (cloud) | `main` | https://hsbc-portal-iy97.onrender.com |
 
 Production is defined in `render.yaml` as a single Render **Blueprint**: four Docker services
 tracking the `main` branch — two **public** (the Next.js portal and the ML API, the latter
@@ -44,7 +44,7 @@ Render assigns the URL from the service name. If your account already uses `hsbc
 Render appends a suffix — in that case update the CORS values in `render.yaml` (see §4) to the
 **actual** portal URL and re-apply, or the browser→backend calls will be CORS-blocked.
 
-- Prod portal → `https://hsbc-portal.onrender.com`
+- Prod portal → `https://hsbc-portal-iy97.onrender.com`
 
 ---
 
@@ -99,6 +99,6 @@ Ways to cut cost:
 - [ ] Open the prod portal URL and click through: estimate → history → compare, dashboard →
       what-if → tables (CSV + PDF export).
 - [ ] ML API Swagger reachable at the public ML API URL + `/docs`
-      (e.g. https://ml-api-7y3b.onrender.com/docs).
+      (e.g. https://ml-api-iy97.onrender.com/docs).
 - [ ] If on free tier, hit the portal once ~1 min before the demo to warm the backends.
 - [ ] Have `docker compose up` ready locally as a fallback if the network/cloud misbehaves.

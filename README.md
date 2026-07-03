@@ -10,10 +10,10 @@ _Production deployment verified live on Render._
 
 | What | URL |
 |---|---|
-| **Portal (main app)** | https://hsbc-portal.onrender.com |
-| **ML API — Swagger UI** (Task 1) | https://ml-api-7y3b.onrender.com/docs |
-| ML API — OpenAPI spec | https://ml-api-7y3b.onrender.com/openapi.json |
-| ML API — health | https://ml-api-7y3b.onrender.com/health |
+| **Portal (main app)** | https://hsbc-portal-iy97.onrender.com |
+| **ML API — Swagger UI** (Task 1) | https://ml-api-iy97.onrender.com/docs |
+| ML API — OpenAPI spec | https://ml-api-iy97.onrender.com/openapi.json |
+| ML API — health | https://ml-api-iy97.onrender.com/health |
 
 **Portal pages** (open in a browser):
 
@@ -35,7 +35,7 @@ _Production deployment verified live on Render._
 
 ```bash
 # example: single prediction through the deployed portal
-curl -X POST https://hsbc-portal.onrender.com/api/estimate \
+curl -X POST https://hsbc-portal-iy97.onrender.com/api/estimate \
   -H 'Content-Type: application/json' \
   -d '{"items":[{"square_footage":1800,"bedrooms":3,"bathrooms":2,"year_built":2001,"lot_size":7200,"distance_to_city_center":5,"school_rating":8}]}'
 ```
