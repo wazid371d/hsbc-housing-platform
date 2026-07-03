@@ -7,7 +7,7 @@ export default function Error({ error, reset }: { error: Error; reset: () => voi
   return (
     <Card className="mx-auto max-w-md">
       <CardBody className="space-y-3 text-center">
-        <h1 className="text-lg font-semibold text-primary">Estimator unavailable</h1>
+        <h1 className="text-lg font-semibold text-error">Estimator unavailable</h1>
         <p className="text-sm text-muted">{error.message || "Failed to load the estimator."}</p>
         <Button onClick={reset}>Retry</Button>
       </CardBody>

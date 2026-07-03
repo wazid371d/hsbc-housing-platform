@@ -78,7 +78,7 @@ export function WhatIfTool() {
             {loading ? "Analysing…" : "Run what-if"}
           </Button>
           {error && (
-            <p role="alert" className="rounded-lg bg-background px-3 py-2 text-sm text-primary">
+            <p role="alert" className="rounded-lg bg-background px-3 py-2 text-sm text-error">
               {error}
             </p>
           )}
@@ -117,7 +117,7 @@ export function WhatIfTool() {
                   Compared to the <strong>{result.comparedSegment}</strong> segment average of{" "}
                   {formatPrice(result.segmentAvgPrice)}:
                 </p>
-                <p className={`mt-1 font-semibold ${diff >= 0 ? "text-success" : "text-primary"}`}>
+                <p className={`mt-1 font-semibold ${diff >= 0 ? "text-success" : "text-error"}`}>
                   {diff >= 0 ? "+" : "−"}
                   {formatPrice(Math.abs(diff))} {diff >= 0 ? "above" : "below"} segment average
                 </p>

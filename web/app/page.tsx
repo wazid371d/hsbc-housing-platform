@@ -25,7 +25,7 @@ export default function Home() {
     <div className="space-y-8">
       <section className="space-y-2">
         <h1 className="text-2xl font-semibold tracking-tight">Housing Portal</h1>
-        <p className="max-w-2xl text-muted">
+        <p className="text-muted">
           A unified portal hosting two applications backed by different technologies, both powered
           by the same housing price prediction model.
         </p>
@@ -47,16 +47,7 @@ export default function Home() {
                   </span>
                 </div>
                 <p className="text-sm text-muted">{app.description}</p>
-                <ul className="flex flex-wrap gap-2 pt-1">
-                  {app.features.map((f) => (
-                    <li
-                      key={f}
-                      className="rounded-md bg-background px-2 py-1 text-xs text-foreground"
-                    >
-                      {f}
-                    </li>
-                  ))}
-                </ul>
+                <p className="pt-1 text-xs text-muted">{app.features.join(" · ")}</p>
                 <p className="pt-2 text-sm font-medium text-primary">Open app →</p>
               </CardBody>
             </Card>

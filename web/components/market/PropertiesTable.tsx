@@ -84,10 +84,10 @@ export function PropertiesTable({ data }: { data: MarketProperty[] }) {
         description={`${table.getFilteredRowModel().rows.length} of ${data.length} properties`}
         action={
           <div className="flex flex-wrap items-end gap-2">
-            <Button variant="secondary" onClick={() => window.open("/api/market/export/csv", "_blank")}>
+            <Button variant="secondary" className="text-primary" onClick={() => window.open("/api/market/export/csv", "_blank")}>
               Export CSV
             </Button>
-            <Button variant="secondary" onClick={exportPdf}>
+            <Button variant="secondary" className="text-primary" onClick={exportPdf}>
               Export PDF
             </Button>
           </div>

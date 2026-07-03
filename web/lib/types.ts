@@ -63,7 +63,7 @@ export const FEATURE_META: Record<
 > = {
   square_footage: { label: "Square Footage", unit: "sq ft", step: 10 },
   bedrooms: { label: "Bedrooms", step: 1, integer: true },
-  bathrooms: { label: "Bathrooms", step: 0.5 },
+  bathrooms: { label: "Bathrooms", step: 1, integer: true },
   year_built: { label: "Year Built", step: 1, integer: true },
   lot_size: { label: "Lot Size", unit: "sq ft", step: 50 },
   distance_to_city_center: { label: "Distance to City Center", unit: "mi", step: 0.1 },

@@ -45,7 +45,7 @@ export function SegmentExplorer({ initial }: { initial: SegmentStats[] }) {
       />
       <CardBody className="space-y-4">
         {error ? (
-          <p role="alert" className="text-sm text-primary">{error}</p>
+          <p role="alert" className="text-sm text-error">{error}</p>
         ) : loading ? (
           <div className="grid h-72 place-items-center">
             <Spinner label="Loading segments" />

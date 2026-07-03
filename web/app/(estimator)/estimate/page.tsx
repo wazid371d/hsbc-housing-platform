@@ -49,7 +49,7 @@ export default function EstimatePage() {
           <CardBody>
             <PropertyForm onSubmit={handleSubmit} loading={loading} />
             {error && (
-              <p role="alert" className="mt-3 rounded-lg bg-background px-3 py-2 text-sm text-primary">
+              <p role="alert" className="mt-3 rounded-lg bg-background px-3 py-2 text-sm text-error">
                 {error}
               </p>
             )}

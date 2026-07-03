@@ -6,7 +6,7 @@ const variants: Record<Variant, string> = {
   primary: "bg-primary text-primary-foreground hover:opacity-90",
   secondary: "bg-surface text-foreground border border-border hover:bg-background",
   ghost: "bg-transparent text-foreground hover:bg-background",
-  danger: "bg-transparent text-primary border border-border hover:bg-background",
+  danger: "bg-transparent text-error border border-border hover:bg-background",
 };
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {

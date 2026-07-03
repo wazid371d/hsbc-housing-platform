@@ -49,7 +49,9 @@ export function Nav() {
                   href={l.href}
                   aria-current={isActive ? "page" : undefined}
                   className={`rounded-lg px-3 py-1.5 text-sm font-medium transition-colors ${
-                    isActive ? "bg-background text-primary" : "text-muted hover:text-foreground"
+                    isActive
+                      ? "bg-background text-primary font-semibold"
+                      : "text-primary hover:text-primary/80"
                   }`}
                 >
                   {l.label}
@@ -70,7 +72,9 @@ export function Nav() {
                     href={s.href}
                     aria-current={isActive ? "page" : undefined}
                     className={`rounded-md px-3 py-1 text-sm transition-colors ${
-                      isActive ? "bg-surface text-foreground shadow-sm" : "text-muted hover:text-foreground"
+                      isActive
+                        ? "bg-surface font-medium text-primary shadow-sm"
+                        : "text-primary hover:text-primary/80"
                     }`}
                   >
                     {s.label}

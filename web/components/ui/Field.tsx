@@ -24,12 +24,12 @@ export const Field = forwardRef<HTMLInputElement, FieldProps>(function Field(
         aria-invalid={error ? "true" : undefined}
         aria-describedby={error ? errorId : undefined}
         className={`w-full rounded-lg border bg-surface px-3 py-2 text-sm outline-none transition-colors ${
-          error ? "border-primary" : "border-border"
+          error ? "border-error" : "border-border"
         } focus:border-accent ${className}`}
         {...props}
       />
       {error && (
-        <p id={errorId} role="alert" className="text-xs text-primary">
+        <p id={errorId} role="alert" className="text-xs text-error">
           {error}
         </p>
       )}
