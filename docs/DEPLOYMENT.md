@@ -8,7 +8,8 @@ How this app is deployed for the client demo.
 | **prod** | Render (cloud) | `main` | https://hsbc-portal.onrender.com |
 
 Production is defined in `render.yaml` as a single Render **Blueprint**: four Docker services
-(one public Next.js portal + three private backends) that track the `main` branch.
+tracking the `main` branch — two **public** (the Next.js portal and the ML API, the latter
+exposed for live Swagger) and two **private** (`bff-property`, `market-analysis`).
 
 ```
                  push to main ─────────────► PROD stack
@@ -97,5 +98,7 @@ Ways to cut cost:
 - [ ] `main` pushed to GitHub, Blueprint **Applied**, all 4 services green.
 - [ ] Open the prod portal URL and click through: estimate → history → compare, dashboard →
       what-if → tables (CSV + PDF export).
+- [ ] ML API Swagger reachable at the public ML API URL + `/docs`
+      (e.g. https://ml-api-7y3b.onrender.com/docs).
 - [ ] If on free tier, hit the portal once ~1 min before the demo to warm the backends.
 - [ ] Have `docker compose up` ready locally as a fallback if the network/cloud misbehaves.
