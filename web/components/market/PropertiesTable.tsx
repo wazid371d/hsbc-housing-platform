@@ -72,7 +72,7 @@ export function PropertiesTable({ data }: { data: MarketProperty[] }) {
         return [p.id, p.squareFootage, p.bedrooms, p.bathrooms, p.yearBuilt, p.schoolRating, formatPrice(p.price)];
       }),
       styles: { fontSize: 8 },
-      headStyles: { fillColor: [219, 0, 17] },
+      headStyles: { fillColor: [11, 92, 171] },
     });
     doc.save("properties.pdf");
   }
