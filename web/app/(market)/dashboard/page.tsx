@@ -18,7 +18,7 @@ export default async function DashboardPage() {
       <div className="space-y-1">
         <h1 className="text-xl font-semibold">Market Analysis Dashboard</h1>
         <p className="text-sm text-muted">
-          Aggregate statistics across {summary.count} properties, served by the Java backend.
+          Aggregate statistics across {summary.count} properties.
         </p>
       </div>
 
