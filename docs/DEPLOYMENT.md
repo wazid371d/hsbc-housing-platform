@@ -34,7 +34,7 @@ This is your day-to-day environment. Nothing to deploy.
 
 1. Sign in at <https://dashboard.render.com> (GitHub sign-in is easiest).
 2. Go to **Blueprints** → **New Blueprint Instance** (or **New → Blueprint**).
-3. Connect the repo `wazid371d/hsbc-fullstack-assignment`, branch **`main`**.
+3. Connect the repo `wazid371d/hsbc-housing-platform`, branch **`main`**.
 4. Render reads `render.yaml` and lists **4 services**. Click **Apply**.
 5. First build takes several minutes (Java/Maven + Next.js + pip). Watch the logs per service.
 
