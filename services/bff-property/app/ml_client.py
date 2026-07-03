@@ -8,8 +8,9 @@ from app.config import settings
 
 
 class MLClient:
-    def __init__(self, base_url: str, timeout: float) -> None:
-        self._client = httpx.AsyncClient(base_url=base_url, timeout=timeout)
+    def __init__(self, base_url: str, timeout: float, api_key: str | None = None) -> None:
+        headers = {"X-API-Key": api_key} if api_key else None
+        self._client = httpx.AsyncClient(base_url=base_url, timeout=timeout, headers=headers)
 
     async def aclose(self) -> None:
         await self._client.aclose()
@@ -49,4 +50,4 @@ class MLClient:
 
 
 # Module-level singleton, lifecycle managed by the app lifespan.
-ml_client = MLClient(settings.ml_api_url, settings.ml_api_timeout_seconds)
+ml_client = MLClient(settings.ml_api_url, settings.ml_api_timeout_seconds, settings.ml_api_key)

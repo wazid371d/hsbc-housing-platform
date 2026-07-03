@@ -9,12 +9,13 @@ from __future__ import annotations
 import logging
 from contextlib import asynccontextmanager
 
-from fastapi import FastAPI
+from fastapi import Depends, FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app import model as model_module
 from app.config import settings
 from app.routers import health, info, predict
+from app.security import guard
 
 logger = logging.getLogger("ml-api")
 logging.basicConfig(level=logging.INFO)
@@ -55,18 +56,20 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
-# Server-to-server callers (Python BFF, Java backend) sit behind their own origins.
-# Permissive in this assignment; tighten the allowlist for production.
+# The API is called server-to-server (BFF, Java) and serves its own Swagger same-origin,
+# so CORS is restricted to an explicit allowlist rather than "*".
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_origins=settings.allowed_origins,
+    allow_methods=["GET", "POST"],
+    allow_headers=["Content-Type", "X-API-Key"],
 )
 
+# /health stays open (used by container/orchestrator probes); /predict and /model-info
+# are guarded by optional API key + rate limiting.
 app.include_router(health.router)
-app.include_router(predict.router)
-app.include_router(info.router)
+app.include_router(predict.router, dependencies=[Depends(guard)])
+app.include_router(info.router, dependencies=[Depends(guard)])
 
 
 @app.get("/", include_in_schema=False)

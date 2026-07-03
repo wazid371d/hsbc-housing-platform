@@ -1,6 +1,7 @@
 """Application configuration via environment variables."""
 from pathlib import Path
 
+from pydantic import Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 # services/ml-api/  (two levels up from this file: app/config.py -> app -> ml-api)
@@ -12,6 +13,21 @@ class Settings(BaseSettings):
 
     app_name: str = "Housing Price Prediction API"
     app_version: str = "1.0.0"
+
+    # --- Security / hardening ---
+    # Browser origins allowed by CORS. The API is called server-to-server (BFF, Java) and
+    # its own Swagger is same-origin, so this can stay tight. Override via
+    # ML_API_ALLOWED_ORIGINS='["https://your-portal"]'.
+    allowed_origins: list[str] = [
+        "http://localhost:3000",
+        "https://hsbc-portal-iy97.onrender.com",
+    ]
+    # Optional shared secret. When set, /predict and /model-info require a matching
+    # X-API-Key header. Unset (default) → open, so local dev and tests are unaffected.
+    # Aliased so the env var is a clean ML_API_KEY (not the prefixed ML_API_API_KEY).
+    api_key: str | None = Field(default=None, validation_alias="ML_API_KEY")
+    # Simple per-client rate limit for /predict and /model-info. 0 disables it.
+    rate_limit_per_minute: int = 240
 
     # Where the trained pipeline + metrics are persisted.
     artifacts_dir: Path = SERVICE_ROOT / "artifacts"

@@ -113,6 +113,19 @@ cd services/bff-property && pytest       # 3 tests
 cd services/market-analysis && mvn test  # 3 tests
 ```
 
+## Security (ML API)
+
+The ML API applies a few hardening measures (see `services/ml-api/app/security.py`):
+
+- **CORS** is restricted to an explicit allowlist (`ML_API_ALLOWED_ORIGINS`), not `*` — the
+  API is called server-to-server and serves its own Swagger same-origin.
+- **Rate limiting** on `/predict` and `/model-info` — per-client sliding window
+  (`ML_API_RATE_LIMIT_PER_MINUTE`, default 240; `/health` is exempt).
+- **Optional API-key auth** — set `ML_API_KEY` on the ML API to require an `X-API-Key`
+  header on `/predict` and `/model-info`. Enable it end-to-end by setting the same secret on
+  all three services (`ML_API_KEY` on ml-api + market-analysis, `BFF_ML_API_KEY` on
+  bff-property). Unset by default so local dev and tests stay open. See `.env.example`.
+
 ## Deploy (Render)
 
 `render.yaml` is a production Blueprint of four services: the **public** Next.js portal, the

@@ -9,6 +9,8 @@ server:
 ml:
   api:
     url: ${ML_API_URL:http://localhost:8000}
+    # Optional shared secret sent to the ML API as X-API-Key (when it enforces one).
+    key: ${ML_API_KEY:}
 
 # Path to the housing dataset (classpath copy; overridable).
 dataset:
