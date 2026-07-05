@@ -122,9 +122,24 @@ The ML API applies a few hardening measures (see `services/ml-api/app/security.p
 - **Rate limiting** on `/predict` and `/model-info` — per-client sliding window
   (`ML_API_RATE_LIMIT_PER_MINUTE`, default 240; `/health` is exempt).
 - **Optional API-key auth** — set `ML_API_KEY` on the ML API to require an `X-API-Key`
-  header on `/predict` and `/model-info`. Enable it end-to-end by setting the same secret on
+  header on `/predict` and `/model-info` (declared via FastAPI's `APIKeyHeader` scheme, so
+  Swagger shows an **Authorize** button). Enable it end-to-end by setting the same secret on
   all three services (`ML_API_KEY` on ml-api + market-analysis, `BFF_ML_API_KEY` on
   bff-property). Unset by default so local dev and tests stay open. See `.env.example`.
+
+**Testing the API key**
+
+```bash
+KEY=<your-secret>
+BODY='{"items":[{"square_footage":1550,"bedrooms":3,"bathrooms":2,"year_built":1997,"lot_size":6800,"distance_to_city_center":4.1,"school_rating":7.6}]}'
+# without key -> 401
+curl -i -X POST https://ml-api-ilhl.onrender.com/predict -H 'Content-Type: application/json' -d "$BODY"
+# with key -> 200
+curl -i -X POST https://ml-api-ilhl.onrender.com/predict -H 'Content-Type: application/json' -H "X-API-Key: $KEY" -d "$BODY"
+```
+
+In Swagger (`/docs`): click **Authorize**, paste the key, then **Try it out** on `/predict`
+succeeds; without authorizing it returns `401`. `/health` stays open (no key needed).
 
 ## Deploy (Render)
 

@@ -100,5 +100,8 @@ Ways to cut cost:
       what-if → tables (CSV + PDF export).
 - [ ] ML API Swagger reachable at the public ML API URL + `/docs`
       (e.g. https://ml-api-ilhl.onrender.com/docs).
+- [ ] (If API-key auth enabled) `ML_API_KEY` set on `ml-api` + `market-analysis`,
+      `BFF_ML_API_KEY` on `bff-property`; `/predict` returns `401` without the key and
+      `200` with it, and the portal chains still work.
 - [ ] If on free tier, hit the portal once ~1 min before the demo to warm the backends.
 - [ ] Have `docker compose up` ready locally as a fallback if the network/cloud misbehaves.
