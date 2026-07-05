@@ -20,7 +20,7 @@ class Settings(BaseSettings):
     # ML_API_ALLOWED_ORIGINS='["https://your-portal"]'.
     allowed_origins: list[str] = [
         "http://localhost:3000",
-        "https://hsbc-portal-iy97.onrender.com",
+        "https://hsbc-portal-ilhl.onrender.com",
     ]
     # Optional shared secret. When set, /predict and /model-info require a matching
     # X-API-Key header. Unset (default) → open, so local dev and tests are unaffected.

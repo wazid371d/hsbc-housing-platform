@@ -30,11 +30,11 @@ services:
     plan: starter
     region: oregon
     envVars:
-      # Render assigned every service in this blueprint the shared "-iy97" suffix.
+      # Render assigned every service in this blueprint the shared "-ilhl" suffix.
       - key: BFF_ML_API_URL
-        value: http://ml-api-iy97:8000
+        value: http://ml-api-ilhl:8000
       - key: BFF_CORS_ORIGINS
-        value: '["https://hsbc-portal-iy97.onrender.com"]'
+        value: '["https://hsbc-portal-ilhl.onrender.com"]'
 
   # App 2 backend — Java Spring Boot (private)
   - type: pserv
@@ -47,9 +47,9 @@ services:
     region: oregon
     envVars:
       - key: ML_API_URL
-        value: http://ml-api-iy97:8000
+        value: http://ml-api-ilhl:8000
       - key: CORS_ALLOWED_ORIGINS
-        value: https://hsbc-portal-iy97.onrender.com
+        value: https://hsbc-portal-ilhl.onrender.com
 
   # Next.js portal (public)
   - type: web
@@ -63,6 +63,6 @@ services:
     healthCheckPath: /
     envVars:
       - key: BFF_URL
-        value: http://bff-property-iy97:8000
+        value: http://bff-property-ilhl:8000
       - key: MARKET_API_URL
-        value: http://market-analysis-iy97:8080
+        value: http://market-analysis-ilhl:8080
