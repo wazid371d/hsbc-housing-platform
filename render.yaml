@@ -19,6 +19,10 @@ services:
     plan: starter
     region: oregon
     healthCheckPath: /health
+    envVars:
+      # API-key enforcement. Secret value is set in the Render dashboard, never committed.
+      - key: ML_API_KEY
+        sync: false
 
   # App 1 backend — Python BFF (private)
   - type: pserv
@@ -35,6 +39,9 @@ services:
         value: http://ml-api-ilhl:8000
       - key: BFF_CORS_ORIGINS
         value: '["https://hsbc-portal-ilhl.onrender.com"]'
+      # Forwarded to the ML API as X-API-Key. Secret set in the dashboard.
+      - key: BFF_ML_API_KEY
+        sync: false
 
   # App 2 backend — Java Spring Boot (private)
   - type: pserv
@@ -50,6 +57,9 @@ services:
         value: http://ml-api-ilhl:8000
       - key: CORS_ALLOWED_ORIGINS
         value: https://hsbc-portal-ilhl.onrender.com
+      # Forwarded to the ML API as X-API-Key. Secret set in the dashboard.
+      - key: ML_API_KEY
+        sync: false
 
   # Next.js portal (public)
   - type: web
