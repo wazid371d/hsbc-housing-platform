@@ -32,9 +32,20 @@ _hits: dict[str, deque[float]] = defaultdict(deque)
 
 
 def require_api_key(api_key: str | None = Security(api_key_header)) -> None:
-    """Reject requests without a valid X-API-Key when a key is configured."""
+    """Enforce API-key auth.
+
+    * key configured  -> require a matching X-API-Key (401 otherwise).
+    * no key + require_key=True  -> fail closed: refuse to serve (503), so the endpoint is
+      unusable until the secret is deployed.
+    * no key + require_key=False -> open (dev/tests).
+    """
     if not settings.api_key:
-        return  # auth disabled
+        if settings.require_key:
+            raise HTTPException(
+                status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+                detail="API key authentication is required but not configured",
+            )
+        return  # auth disabled (fail-open)
     if not api_key or api_key != settings.api_key:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,

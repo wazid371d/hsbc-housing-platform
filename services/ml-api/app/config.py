@@ -26,6 +26,10 @@ class Settings(BaseSettings):
     # X-API-Key header. Unset (default) → open, so local dev and tests are unaffected.
     # Aliased so the env var is a clean ML_API_KEY (not the prefixed ML_API_API_KEY).
     api_key: str | None = Field(default=None, validation_alias="ML_API_KEY")
+    # Fail-closed switch (env ML_API_REQUIRE_KEY). When true, /predict and /model-info are
+    # rejected (503) unless a key is configured — so the API is unusable until the secret is
+    # deployed. Default false keeps local dev and tests open.
+    require_key: bool = False
     # Simple per-client rate limit for /predict and /model-info. 0 disables it.
     rate_limit_per_minute: int = 240
 

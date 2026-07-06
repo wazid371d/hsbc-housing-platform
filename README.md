@@ -126,6 +126,10 @@ The ML API applies a few hardening measures (see `services/ml-api/app/security.p
   Swagger shows an **Authorize** button). Enable it end-to-end by setting the same secret on
   all three services (`ML_API_KEY` on ml-api + market-analysis, `BFF_ML_API_KEY` on
   bff-property). Unset by default so local dev and tests stay open. See `.env.example`.
+- **Fail-closed mode** — set `ML_API_REQUIRE_KEY=true` on the ML API to make `/predict` and
+  `/model-info` return **503 until `ML_API_KEY` is configured**. This makes the API
+  secure-by-default: it simply won't serve predictions unless the secret is deployed. Enabled
+  in `render.yaml` for production. (`/health` stays open for probes.)
 
 **Testing the API key**
 

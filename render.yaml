@@ -23,6 +23,11 @@ services:
       # API-key enforcement. Secret value is set in the Render dashboard, never committed.
       - key: ML_API_KEY
         sync: false
+      # Fail-closed: /predict and /model-info return 503 until ML_API_KEY is set.
+      # ⚠ Set ML_API_KEY (here) + BFF_ML_API_KEY + market's ML_API_KEY BEFORE syncing this,
+      # or the app will 503 until they are configured.
+      - key: ML_API_REQUIRE_KEY
+        value: "true"
 
   # App 1 backend — Python BFF (private)
   - type: pserv
